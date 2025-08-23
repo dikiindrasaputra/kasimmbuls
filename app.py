@@ -33,8 +33,9 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 db = SQLAlchemy(app)
 
 class Product(db.Model):
+    __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Float, nullable=False)
     image = db.Column(db.String(255))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
