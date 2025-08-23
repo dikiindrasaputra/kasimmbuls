@@ -8,6 +8,7 @@ from jwt import ExpiredSignatureError, InvalidTokenError
 from dotenv import load_dotenv
 from flask_cors import CORS
 from functools import wraps
+from werkzeug.utils import secure_filename
 import uuid
 from flask_socketio import SocketIO, emit, join_room
 from datetime import timezone
