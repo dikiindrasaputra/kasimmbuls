@@ -32,15 +32,6 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 db = SQLAlchemy(app)
 
-socketio = SocketIO(app, cors_allowed_origins="*")
-@socketio.on('join')
-def on_join(data):
-    transaction_id = data.get('transaction_id')
-    if warung_id:
-        join_room(f'transaction_{transaction_id}')
-        emit('joined_room', {'room': f'transaction_{transaction_id}'})
-
-
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
