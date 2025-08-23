@@ -2,9 +2,6 @@ import os
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-import jwt
-from jwt import ExpiredSignatureError, InvalidTokenError
 from dotenv import load_dotenv
 from flask_cors import CORS
 from functools import wraps
@@ -12,6 +9,9 @@ from werkzeug.utils import secure_filename
 import uuid
 from flask_socketio import SocketIO, emit, join_room
 from datetime import timezone
+# Import pustaka json
+import json
+from sqlalchemy import func
 
 # Muat variabel lingkungan dari .env
 load_dotenv()
