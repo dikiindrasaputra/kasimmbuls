@@ -1,5 +1,6 @@
 from gevent import monkey
 monkey.patch_all()
+
 import os
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify, send_from_directory
@@ -14,13 +15,26 @@ from datetime import timezone
 import json
 from sqlalchemy import func
 
+# Muat variabel lingkungan dari .env
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
+# JANGAN gunakan supports_credentials=True bersamaan dengan "*" karena browser akan memblokir request POST!
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
+
 socketio = SocketIO(app, cors_allowed_origins="*")
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db?check_same_thread=False'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') or 'supersecretkeykasim'
+
+# Menggunakan path absolut untuk database SQLite agar stabil di lingkungan deployment cloud
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db') + '?check_same_thread=False'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
