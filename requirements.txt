@@ -1,7 +1,6 @@
 Flask
 Flask-SQLAlchemy
-Flask-Bcrypt
-PyJWT
+SQLAlchemy
 python-dotenv
 Flask-Cors
 Flask-SocketIO
