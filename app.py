@@ -302,4 +302,5 @@ def get_banners():
     return jsonify([{"id": b.id, "image_url": b.image_url} for b in banners])
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=5001)
+    port = int(os.environ.get("PORT", 5001))
+    socketio.run(app, debug=False, host='0.0.0.0', port=port)
