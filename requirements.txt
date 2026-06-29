@@ -4,5 +4,4 @@ SQLAlchemy
 python-dotenv
 Flask-Cors
 Flask-SocketIO
-eventlet
 gunicorn
