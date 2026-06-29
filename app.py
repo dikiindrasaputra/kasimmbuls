@@ -1,3 +1,5 @@
+from gevent import monkey
+monkey.patch_all()
 import os
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify, send_from_directory
@@ -9,11 +11,9 @@ from werkzeug.utils import secure_filename
 import uuid
 from flask_socketio import SocketIO, emit, join_room
 from datetime import timezone
-# Import pustaka json
 import json
 from sqlalchemy import func
 
-# Muat variabel lingkungan dari .env
 load_dotenv()
 
 app = Flask(__name__)
